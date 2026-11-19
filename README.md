@@ -1,4 +1,8 @@
-# HA Switches — ncSender plugin (prototype)
+# HA Switches — ncSender plugin
+
+Needs the [ha-ncsender](https://github.com/stmoha/ha-ncsender) Home Assistant integration,
+**v0.5.0 or later** (currently a pre-release: in Home Assistant's Marketplace, open ncSender →
+⋮ → Redownload and enable pre-releases).
 
 Switch Home Assistant devices from ncSender's screen: chiller, air assist, dust collector, lights,
 even the controller's own power. Each device gets On/Off buttons and, once connected directly, its
@@ -22,9 +26,10 @@ file you downloaded can't switch your other devices.
 1. **Home Assistant** → Settings → Devices & services → ncSender → **Configure**.
    - Under *Devices ncSender may switch*, pick the entities and Submit.
    - Copy the **webhook URL** shown at the top of the same dialog.
-2. **ncSender** → Settings → Plugins → *Install Plugin* → choose the ZIP
-   (`com.cncdocs.ha-switches_<version>.zip`, built with `python ncsender-plugin/package.py`).
-   Press Ctrl+F5 if the Plugins tab doesn't show **HA Switches** yet.
+2. **ncSender** → Settings → Plugins → *Install Plugin* → choose the ZIP from the
+   [latest release](https://github.com/stmoha/ncsender-plugin-ha-switches/releases/latest)
+   (`com.cncdocs.ha-switches_vX.Y.Z.zip`). Press Ctrl+F5 if the Plugins tab doesn't show
+   **HA Switches** yet. Once installed, ncSender offers updates from this repo's releases.
 3. Open **HA Switches** → *Edit HA Switches settings* (the bar at the bottom: click it to open, click it again or press *Close settings* to close):
    - Paste the webhook URL into *Home Assistant webhook URL*. *Find it in Home Assistant ↗* opens
      the integration page.
@@ -64,9 +69,10 @@ the same window from **Settings → Plugins → HA Switches → Settings**.
 
 **Keyboard shortcuts.** *Keyboard shortcuts…* opens ncSender's Settings → Controls, where *HA
 Switches* can be bound to a key to open this window. Shortcuts that toggle a single device need
-ncSender's Auxiliary I/O outputs to support Home Assistant (drafted upstream; see `docs/ROADMAP.md`).
+ncSender's Auxiliary I/O outputs to support Home Assistant (drafted upstream; see the integration's
+[roadmap](https://github.com/stmoha/ha-ncsender/blob/main/docs/ROADMAP.md)).
 
-## Limits (prototype)
+## Limits
 
 - The webhook URL is stored in the plugin's settings, which anyone who can reach ncSender on your
   network can read (ncSender has no login). The webhook only accepts local-network requests and only
@@ -80,3 +86,8 @@ Every command the integration sees fires an `ncsender_ha_command` event
 listen to `ncsender_ha_command`, then press a button. `allowed: false` means the entity isn't in
 Configure. "Can't reach Home Assistant" means the webhook URL is wrong or the integration is older
 than v0.5.0b2.
+
+## Building
+
+`python package.py [label]` writes `dist/com.cncdocs.ha-switches_<label>.zip` (default label
+`v<version>` from `manifest.json`). Releases are built by GitHub; see [RELEASING.md](RELEASING.md).

@@ -1,0 +1,54 @@
+name: Build and Release Plugin
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Create Plugin Release
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check the tag matches manifest.json
+        id: info
+        run: |
+          NAME=$(jq -r '.name' manifest.json)
+          VERSION=$(jq -r '.version' manifest.json)
+          TAG="${{ github.ref_name }}"
+          if [ "v${VERSION%%-*}" != "${TAG%%-*}" ] && [ "v$VERSION" != "$TAG" ]; then
+            echo "::error::Tag $TAG doesn't match manifest.json version $VERSION"
+            exit 1
+          fi
+          echo "NAME=$NAME" >> "$GITHUB_OUTPUT"
+          echo "TAG=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Package
+        run: |
+          python3 package.py "${{ steps.info.outputs.TAG }}"
+          ls -lh dist/
+
+      - name: Create or update the release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.info.outputs.TAG }}
+          NAME: ${{ steps.info.outputs.NAME }}
+        run: |
+          [ -f latest_release.md ] && cp latest_release.md notes.md || echo "Release $TAG" > notes.md
+          # Published from the website (which pushed this tag): attach the ZIP, and fill in the
+          # notes from latest_release.md if the notes box was left empty.
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            gh release upload "$TAG" --repo "$GITHUB_REPOSITORY" --clobber dist/*.zip
+            BODY=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json body --jq '.body // ""')
+            if [ -z "$(printf '%s' "$BODY" | tr -d '[:space:]')" ]; then
+              gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --notes-file notes.md
+            fi
+          else
+            gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "$NAME $TAG" \
+              --notes-file notes.md dist/*.zip
+          fi
