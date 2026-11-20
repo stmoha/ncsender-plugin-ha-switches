@@ -4,11 +4,15 @@ First release from its own repo. Install the ZIP below in ncSender → Settings 
 Needs the [ha-ncsender](https://github.com/stmoha/ha-ncsender) Home Assistant integration v0.5.0
 or later.
 
+![HA Switches: one toggle per device with its live state](https://raw.githubusercontent.com/stmoha/ncsender-plugin-ha-switches/main/images/switches.png)
+
 **New in 0.1.9**
 - **Edit HA Switches settings** bar with a chevron and a "Click to open / Click to close" hint,
   plus a *Close settings* button next to Save.
 - The switch list is coloured with ncSender's editor colours: names, entity IDs, `hold` / `slow`,
   `#` notes, and anything that isn't an entity ID underlined in red.
+
+![The settings panel: webhook URL (blurred) and the coloured switch list](https://raw.githubusercontent.com/stmoha/ncsender-plugin-ha-switches/main/images/settings.png)
 
 **Also in this release** (0.1.x, developed inside ha-ncsender)
 - One toggle per device with live on/off state, pulsing "Switching…" until Home Assistant confirms.
