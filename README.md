@@ -8,6 +8,8 @@ Switch Home Assistant devices from ncSender's screen: chiller, air assist, dust 
 even the controller's own power. Each device gets On/Off buttons and, once connected directly, its
 live on/off state.
 
+![HA Switches in ncSender: one toggle per device with its live state; Hold and Slow tags on the switches that need them](images/switches.png)
+
 Two ways to reach Home Assistant:
 
 - **Direct (recommended, integration v0.5.0b2+).** The plugin posts to a local-only webhook that the
@@ -33,7 +35,10 @@ file you downloaded can't switch your other devices.
 3. Open **HA Switches** → *Edit HA Switches settings* (the bar at the bottom: click it to open, click it again or press *Close settings* to close):
    - Paste the webhook URL into *Home Assistant webhook URL*. *Find it in Home Assistant ↗* opens
      the integration page.
-   - List the switches, one per line, then **Save**:
+   - List the switches, one per line, then **Save**. The list is coloured like ncSender's G-code
+     editor, so a typo in an entity ID shows up red before you save:
+
+   ![The settings panel open: webhook URL (blurred here), and the switch list with names, entity IDs, hold/slow flags and # notes coloured](images/settings.png)
 
    ```
    Chiller, switch.s4_cnc_chiller
