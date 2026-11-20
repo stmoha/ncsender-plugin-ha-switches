@@ -8,10 +8,9 @@
   "iconUrl": "https://raw.githubusercontent.com/stmoha/ncsender-plugin-ha-switches/main/icon.png",
   "repository": "https://github.com/stmoha/ncsender-plugin-ha-switches",
   "releaseUrl": "https://github.com/stmoha/ncsender-plugin-ha-switches/releases",
-  "minAppVersion": "0.3.111",
+  "minAppVersion": "2.0.88",
   "platforms": {
-    "v1": "0.3.111",
-    "pro-v1": "0.3.111",
-    "pro-v2": "2.0.0"
+    "v2": "2.0.88",
+    "pro-v2": "2.0.149"
   }
 }
