@@ -2,7 +2,7 @@ First release from its own repo. Install the ZIP below in ncSender → Settings 
 *Install Plugin*, then Ctrl+F5; from now on ncSender offers updates from this repo.
 
 Needs the [ha-ncsender](https://github.com/stmoha/ha-ncsender) Home Assistant integration v0.5.0
-or later (pre-release for now).
+or later.
 
 **New in 0.1.9**
 - **Edit HA Switches settings** bar with a chevron and a "Click to open / Click to close" hint,

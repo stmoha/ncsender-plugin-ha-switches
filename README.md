@@ -1,8 +1,7 @@
 # HA Switches — ncSender plugin
 
 Needs the [ha-ncsender](https://github.com/stmoha/ha-ncsender) Home Assistant integration,
-**v0.5.0 or later** (currently a pre-release: in Home Assistant's Marketplace, open ncSender →
-⋮ → Redownload and enable pre-releases).
+**v0.5.0 or later**.
 
 Switch Home Assistant devices from ncSender's screen: chiller, air assist, dust collector, lights,
 even the controller's own power. Each device gets On/Off buttons and, once connected directly, its
